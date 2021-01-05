@@ -504,6 +504,43 @@ else {
 }
 
 
+# dg added subs
+
+# Input: 
+# - sequence
+# - list of unmodified bases (ie ACGT)
+# Output: True if sequence has modified base not 
+sub seq_has_modified_base {
+  my $seq = shift @_;
+  my $dic_aref = shift @_;
+
+  foreach my $char (split('', $seq)) {
+        my $char_in_dic = 0; # set to 1 if char found in dict (ACGT)
+        foreach my $dic_char (@$dic_aref) {
+            #print "$char $dic_char\n";
+            if ($char eq $dic_char) {
+                $char_in_dic = 1;
+                last; # break out of loop once found in dic (ie was ACGT)
+            }
+        }
+        #if ($char_in_dic == 1) {
+        #    print "was in dictionary\n";
+        #}
+
+        # if contained a non-ACGT char, return True that sequence has mod base
+        if ($char_in_dic == 0) {
+          return 1;
+            # print "NOT in dictionary\n";
+            # $has_mod_base = 1;
+            # last;
+        }
+    }
+    return 0; # no modified base was found
+    # if ($has_mod_base == 1) {
+    #     print "$s had a modified base";
+    # }
+}
+
 
 #
 # mlr_motif
